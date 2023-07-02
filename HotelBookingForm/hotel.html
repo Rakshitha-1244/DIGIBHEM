@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Booking Form</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        body {
+            background-color: lightgrey;
+        }
+
+        .first {
+            font-size: 25px;
+            color: brown;
+        }
+
+        .second {
+            font-size: 20px;
+        }
+
+        .third {
+            display: flex;
+            text-align: center;
+        }
+
+        .four {
+            font-size: 18px;
+        }
+
+        .five {
+            display: flex;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .output {
+            width: 700px;
+            margin: auto;
+            background-color: #FBEAEB;
+            box-shadow: 6px 6px 6px #000000;
+            border-radius: 22px;
+            display: none;
+            
+           
+        }
+        
+
+       
+    </style>
+</head>
+<body>
+<h1 style="color:red; text-align: center;background-color:rebeccapurple;">Hotel Booking Registration Form</h1>
+<div class="first">
+    <b>Customer Information</b><br><br>
+</div>
+<form class="second">
+    <label for="custname">Customer Name:</label>
+    <input type="text" id="custname"><br><br>
+    <label for="date">Check-in date:</label>
+    <input type="date" id="date"><br><br>
+    <label for="days">Total No of Days:</label>
+    <input type="text" id="days"><br><br>
+    <label for="persons">Total No of Persons:</label>
+    <input type="text" id="persons"><br><br>
+</form>
+<div class="first">
+    <b>Room Information</b><br><br>
+</div>
+<div class="third">
+    <figure>
+        <img src="deluxroom.jpg" alt="room" width="300px" height="300px;"><br>
+        <figurecaption> Delux Room <br> Price:2500/</figurecaption>
+    </figure>
+    <figure>
+        <img src="suiteroom.jpg" alt="room" width="300px" height="300px;"><br>
+        <figurecaption> Suite Room<br>Price:4000/</figurecaption>
+    </figure>
+</div>
+<p style=" font-size: 25px;color: brown;">Choose the room type:</p>
+<form class="four">
+    <select name="room" id="room">
+        <option value="delux">Delux Room</option>
+        <option value="suite">Suite Room</option>
+    </select>
+</form>
+<div>
+    <p style=" font-size: 25px;color: brown;" >Choose Amenities:</p><br>
+</div>
+<div class="five">
+    <figure>
+        <img src="ac.jpg" alt="room" width="300px" height="300px;"><br>
+        <figurecaption>
+            <form>
+                <input type="checkbox" name="amenity" value="ac" id="checkbox1">Ac<br>Price:1000/
+            </form>
+        </figurecaption>
+    </figure>
+    <figure>
+        <img src="locker.jpg" alt="room" width="300px" height="300px;"><br>
+        <figurecaption>
+            <form>
+                <input type="checkbox" name="amenity" value="locker" id="checkbox2">Locker<br>Price:300/
+            </form>
+        </figurecaption>
+    </figure><br>
+</div>
+<form>
+    <label for="pay"><p style="font-size:20px;">Advance Amount:</label>
+    <input type="text" id="pay"><br><br>
+
+    <p style="text-align: center; font-size:20px ;"><button type="button" id="btn" onclick="fun1()"
+                                                                   style="background-color:green;"><b>Register</b>
+    </button></p>
+</form>
+
+<div id="output">
+    <h1 style="color:red; text-align: center;background-color:rebeccapurple;">BOOKING DETAILS</h1>
+    <p style="font-size: 20px;">Customer Name:<span class="demo"></span><br><br>
+    Check-In Date: <span class="demo1"></span><br><br>
+    Total No. of Days: <span class="demo2"></span><br><br>
+    Total No. of Persons: <span class="demo3"></span><br><br>
+    Room Type: <span class="demo4"></span><br><br>
+    Amenities: <span class="demo5"></span><br><br>
+    Total Room Cost: <span class="demo6"></span><br><br>
+    Total Amenities Cost: <span class="demo7"></span><br><br>
+    Additional Charges: <span class="demo8"></span><br><br>
+    Total Cost: <span class="demo9"></span><br><br>
+    Advance Amount: <span class="demo10"></span><br><br>
+    Balance Amount: <span class="demo11"></span><br><br></p>
+</div>
+
+<script>
+    const custname = document.getElementById('custname');
+    const btn = document.getElementById('btn');
+    const date = document.getElementById('date');
+    const days = document.getElementById('days');
+    const persons = document.getElementById('persons');
+    const room = document.getElementById('room');
+    const pay = document.getElementById('pay');
+    const acCheckbox = document.getElementById('checkbox1');
+    const lockerCheckbox = document.getElementById('checkbox2');
+
+    function calculateAmenitiesCost() {
+        let amenitiesCost = 0;
+        let amenitiesName = '';
+        if (acCheckbox.checked && lockerCheckbox.checked) {
+            amenitiesCost = 1300;
+            amenitiesName = 'AC Locker';
+        } else if (acCheckbox.checked) {
+            amenitiesCost = 1000;
+            amenitiesName = 'AC';
+        } else if (lockerCheckbox.checked) {
+            amenitiesCost = 300;
+            amenitiesName = 'Locker';
+        }
+        return {
+            cost: amenitiesCost,
+            name: amenitiesName
+        };
+    }
+
+
+    function fun1() {
+        if (custname.value === '' || date.value === '' || days.value === '' || persons.value === '' || pay.value === '') {
+            window.alert("Enter Complete Details.........");
+            return false;
+        }
+        document.querySelector('.demo').innerHTML = custname.value;
+        document.querySelector('.demo1').innerHTML = date.value;
+        document.querySelector('.demo2').innerHTML = days.value;
+        document.querySelector('.demo3').innerHTML = persons.value;
+        document.querySelector('.demo4').innerHTML = room.value;
+        document.querySelector('.demo10').innerHTML = pay.value;
+
+        let roomRate = 0;
+        if (room.value === 'delux') {
+            roomRate = 2500;
+        } else if (room.value === 'suite') {
+            roomRate = 4000;
+        }
+
+        //Total room cost
+        const totalRoomCost = roomRate * parseInt(days.value);
+        document.querySelector('.demo6').innerHTML = totalRoomCost;
+
+        //Total amenities cost (calling calculateAmenitiesCost() function)
+        const amenities = calculateAmenitiesCost();
+        const totalAmenitiesCost = amenities.cost * parseInt(days.value);
+        document.querySelector('.demo7').innerHTML = totalAmenitiesCost;
+        document.querySelector('.demo5').innerHTML = amenities.name;
+
+        //Extra charges
+        const extraCharge = (persons.value - 2) * 1000 * parseInt(days.value);
+        document.querySelector('.demo8').innerHTML = extraCharge;
+
+        //Total cost
+        const totalCost = totalRoomCost + totalAmenitiesCost + extraCharge;
+        document.querySelector('.demo9').innerHTML = totalCost;
+
+        //Balance amount
+        const balance = totalCost - parseInt(pay.value);
+        document.querySelector('.demo11').innerHTML = balance;
+
+        const divCont = document.getElementById('output');
+        divCont.style.display = 'block';
+    }
+
+    btn.addEventListener('click', fun1);
+</script>
+</body>
+</html>
